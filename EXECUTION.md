@@ -80,37 +80,36 @@
 ### Task 1-1: 프로젝트 초기 설정 및 구조 생성
 **분류**: 백엔드/설정 | **의존성**: Git 저장소 설정 | **브랜치**: `task/1-1-project-setup`
 
-- [ ] `pnpm init`으로 package.json 생성
-- [ ] TypeScript 설정 파일 생성 (tsconfig.json)
-- [ ] Jest 테스트 환경 설정 (jest.config.js)
-- [ ] 프로젝트 디렉토리 구조 생성
-  - [ ] src/ 폴더 생성
-  - [ ] src/tools/ 폴더 생성
-  - [ ] src/utils/ 폴더 생성
-  - [ ] src/constants/ 폴더 생성
-  - [ ] data/ 폴더 생성 (CSV 파일 저장용)
-  - [ ] tests/ 폴더 및 하위 구조 생성
-- [ ] 환경설정 파일들 생성
-  - [ ] .env.example (TTB_KEY, LOG_LEVEL, NODE_ENV)
-  - [ ] .gitignore (node_modules, .env, dist/, logs/)
-  - [ ] .npmignore (src/, tests/, *.md, .env*)
-  - [ ] .nvmrc (Node.js 버전 고정)
-  - [ ] .editorconfig (코드 스타일 통일)
-- [ ] 개발 환경 의존성 설치
-  - [ ] typescript, @types/node, ts-node, nodemon
-  - [ ] jest, @types/jest
-  - [ ] eslint, prettier (선택사항)
-- [ ] 프로덕션 의존성 설치
-  - [ ] @modelcontextprotocol/sdk
-  - [ ] axios, fast-xml-parser, dotenv
-  - [ ] csv-parser (CSV 파일 파싱용)
-  - [ ] winston 또는 pino (선택사항)
-- [ ] 카테고리 데이터 파일 설정
-  - [ ] data/aladin_Category_CID_20210927.csv 파일 배치
-  - [ ] CSV 파일 접근 권한 확인
-- [ ] Git 작업 완료
-  - [ ] 모든 변경사항 커밋 (`feat: 프로젝트 초기 설정 및 구조 생성`)
-  - [ ] PR 생성 (`Task 1-1: 프로젝트 초기 설정 완료`)
+- [x] `pnpm init`으로 package.json 생성
+- [x] TypeScript 설정 파일 생성 (tsconfig.json)
+- [x] Jest 테스트 환경 설정 (jest.config.js)
+- [x] 프로젝트 디렉토리 구조 생성
+  - [x] src/ 폴더 생성
+  - [x] src/tools/ 폴더 생성
+  - [x] src/utils/ 폴더 생성
+  - [x] src/constants/ 폴더 생성
+  - [x] tests/ 폴더 및 하위 구조 생성
+- [x] 환경설정 파일들 생성
+  - [x] .env.example (TTB_KEY, LOG_LEVEL, NODE_ENV)
+  - [x] .gitignore (node_modules, .env, dist/, logs/) - 이미 존재
+  - [x] .npmignore (src/, tests/, *.md, .env*)
+  - [x] .nvmrc (Node.js 버전 고정)
+  - [x] .editorconfig (코드 스타일 통일)
+- [x] 개발 환경 의존성 설치
+  - [x] typescript, @types/node, ts-node, nodemon
+  - [x] jest, @types/jest
+  - [x] eslint, prettier, rimraf
+- [x] 프로덕션 의존성 설치
+  - [x] @modelcontextprotocol/sdk
+  - [x] axios, fast-xml-parser, dotenv
+  - [x] csv-parser (CSV 파일 파싱용)
+  - [x] winston (로깅 라이브러리)
+- [x] 카테고리 데이터 파일 설정
+  - [x] aladin_Category_CID_20210927.csv 파일 배치 확인
+  - [x] CSV 파일 접근 권한 확인
+- [x] Git 작업 완료
+  - [x] 모든 변경사항 커밋 (`feat: 프로젝트 초기 설정 및 구조 생성`)
+  - [x] PR 생성 (`Task 1-1: 프로젝트 초기 설정 완료`) - PR #1
   - [ ] 코드 리뷰 및 main 브랜치 병합
 
 **산출물**: 완전한 프로젝트 구조, 설정 파일들, GitHub PR
