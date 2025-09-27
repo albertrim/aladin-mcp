@@ -172,7 +172,7 @@
 - [x] Git 작업 완료
   - [x] 모든 변경사항 커밋 (`feat: 타입 정의 및 상수 모듈 구현`)
   - [x] PR 생성 (`Task 1-2: 타입 정의 및 상수 모듈 완료`) - PR #2
-  - [ ] 코드 리뷰 및 main 브랜치 병합
+  - [x] 코드 리뷰 및 main 브랜치 병합
 
 **산출물**: src/types.ts, src/constants/api.ts, src/constants/categories.ts, GitHub PR
 
