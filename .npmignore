@@ -1,0 +1,36 @@
+# Source files
+src/
+tests/
+coverage/
+
+# Documentation
+*.md
+docs/
+
+# Configuration files
+.env*
+.nvmrc
+.editorconfig
+jest.config.js
+tsconfig.json
+
+# Development files
+.vscode/
+.idea/
+
+# Build tools
+*.log
+logs/
+
+# Git
+.git/
+.gitignore
+
+# Testing
+*.test.ts
+*.spec.ts
+__tests__/
+
+# Cache
+.jest-cache/
+node_modules/.cache/
