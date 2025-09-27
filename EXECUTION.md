@@ -119,59 +119,59 @@
 ### Task 1-2: 타입 정의 및 상수 모듈 구현
 **분류**: 백엔드/타입정의 | **의존성**: Task 1-1 | **브랜치**: `task/1-2-types-constants`
 
-- [ ] 알라딘 API 응답 인터페이스 정의 (src/types.ts)
-  - [ ] ItemSearch 응답 타입 (검색 결과, totalResults, startIndex, itemsPerPage)
-  - [ ] ItemLookUp 응답 타입 (상세 정보, item 배열)
-  - [ ] ItemList 응답 타입 (베스트셀러/신간/추천 등)
-  - [ ] 공통 item 객체 타입 (title, author, publisher, isbn, cover 등)
-  - [ ] subInfo 객체 타입 (부가 정보)
-- [ ] 검색 파라미터 타입 정의
-  - [ ] Query, QueryType 타입 (Title, Author, Publisher, Keyword)
-  - [ ] SearchTarget 타입 (Book, Foreign, eBook, Music, DVD)
-  - [ ] Sort 옵션 (Accuracy, PublishTime, Title, SalesPoint, CustomerRating)
-  - [ ] Cover 타입 (None, Small, MidBig, Big, None)
-  - [ ] Output 타입 (XML, JS)
-  - [ ] Version 타입 (20070901 등)
-  - [ ] OptResult 타입 (authors, fulldescription, Toc, Story, categoryIdList)
-  - [ ] 페이지네이션 파라미터 (Start, MaxResults)
-- [ ] 도서 정보 타입 정의
-  - [ ] 기본 도서 정보 (제목, 저자, 출판사, ISBN)
-  - [ ] 추가 정보 (가격, 할인율, 출간일, 설명)
-  - [ ] 이미지 정보 (표지, 목차)
-- [ ] 베스트셀러/신간 리스트 타입 정의
-  - [ ] CategoryId 타입 정의 (aladin_Category_CID_20210927.csv 기반)
-  - [ ] 카테고리 계층 구조 타입 (1Depth~5Depth)
-  - [ ] 카테고리 매핑 인터페이스 (CID, 카테고리명, 몰 구분)
-  - [ ] QueryType 타입 (Bestseller, NewBook, NewSpecial, EditorChoice 등)
-  - [ ] 기간 타입 정의 (Daily, Weekly, Monthly)
-- [ ] MCP 도구별 입력/출력 타입 정의
-  - [ ] MCP 도구 스키마 인터페이스
-  - [ ] 입력 파라미터 검증 타입
-  - [ ] 도구 응답 포맷 타입
-  - [ ] MCP 서버 메타데이터 타입
-- [ ] 에러 응답 타입 정의
-  - [ ] errorCode, errorMessage 구조
-  - [ ] TTB 키 관련 에러 타입
-  - [ ] API 호출 한도 초과 에러 타입
-  - [ ] MCP 프로토콜 에러 타입
-  - [ ] 네트워크 에러 타입
-- [ ] API 관련 상수 정의 (src/constants/api.ts)
-  - [ ] API 기본 URL (http://www.aladin.co.kr/ttb/api/)
-  - [ ] 엔드포인트 (ItemSearch.aspx, ItemLookUp.aspx, ItemList.aspx)
-  - [ ] SearchTarget 상수 (Book, Foreign, eBook, Music, DVD)
-  - [ ] Sort 옵션 상수 (Accuracy, PublishTime, Title 등)
-  - [ ] Cover 크기 상수 (None, Small, MidBig, Big)
-  - [ ] 기본 파라미터 값 (Version: 20070901, Output: JS 등)
-  - [ ] 에러 메시지 상수
-  - [ ] MCP 도구 스키마 상수
-- [ ] 카테고리 관련 상수/유틸리티 (src/constants/categories.ts)
-  - [ ] CSV 파일 파싱 유틸리티
-  - [ ] 카테고리 매핑 테이블 생성
-  - [ ] 카테고리 검색/조회 유틸리티
-  - [ ] 계층별 카테고리 필터링 기능
-- [ ] Git 작업 완료
-  - [ ] 모든 변경사항 커밋 (`feat: 타입 정의 및 상수 모듈 구현`)
-  - [ ] PR 생성 (`Task 1-2: 타입 정의 및 상수 모듈 완료`)
+- [x] 알라딘 API 응답 인터페이스 정의 (src/types.ts)
+  - [x] ItemSearch 응답 타입 (검색 결과, totalResults, startIndex, itemsPerPage)
+  - [x] ItemLookUp 응답 타입 (상세 정보, item 배열)
+  - [x] ItemList 응답 타입 (베스트셀러/신간/추천 등)
+  - [x] 공통 item 객체 타입 (title, author, publisher, isbn, cover 등)
+  - [x] subInfo 객체 타입 (부가 정보)
+- [x] 검색 파라미터 타입 정의
+  - [x] Query, QueryType 타입 (Title, Author, Publisher, Keyword)
+  - [x] SearchTarget 타입 (Book, Foreign, eBook, Music, DVD)
+  - [x] Sort 옵션 (Accuracy, PublishTime, Title, SalesPoint, CustomerRating)
+  - [x] Cover 타입 (None, Small, MidBig, Big, None)
+  - [x] Output 타입 (XML, JS)
+  - [x] Version 타입 (20070901 등)
+  - [x] OptResult 타입 (authors, fulldescription, Toc, Story, categoryIdList)
+  - [x] 페이지네이션 파라미터 (Start, MaxResults)
+- [x] 도서 정보 타입 정의
+  - [x] 기본 도서 정보 (제목, 저자, 출판사, ISBN)
+  - [x] 추가 정보 (가격, 할인율, 출간일, 설명)
+  - [x] 이미지 정보 (표지, 목차)
+- [x] 베스트셀러/신간 리스트 타입 정의
+  - [x] CategoryId 타입 정의 (aladin_Category_CID_20210927.csv 기반)
+  - [x] 카테고리 계층 구조 타입 (1Depth~5Depth)
+  - [x] 카테고리 매핑 인터페이스 (CID, 카테고리명, 몰 구분)
+  - [x] QueryType 타입 (Bestseller, NewBook, NewSpecial, EditorChoice 등)
+  - [x] 기간 타입 정의 (Daily, Weekly, Monthly)
+- [x] MCP 도구별 입력/출력 타입 정의
+  - [x] MCP 도구 스키마 인터페이스
+  - [x] 입력 파라미터 검증 타입
+  - [x] 도구 응답 포맷 타입
+  - [x] MCP 서버 메타데이터 타입
+- [x] 에러 응답 타입 정의
+  - [x] errorCode, errorMessage 구조
+  - [x] TTB 키 관련 에러 타입
+  - [x] API 호출 한도 초과 에러 타입
+  - [x] MCP 프로토콜 에러 타입
+  - [x] 네트워크 에러 타입
+- [x] API 관련 상수 정의 (src/constants/api.ts)
+  - [x] API 기본 URL (http://www.aladin.co.kr/ttb/api/)
+  - [x] 엔드포인트 (ItemSearch.aspx, ItemLookUp.aspx, ItemList.aspx)
+  - [x] SearchTarget 상수 (Book, Foreign, eBook, Music, DVD)
+  - [x] Sort 옵션 상수 (Accuracy, PublishTime, Title 등)
+  - [x] Cover 크기 상수 (None, Small, MidBig, Big)
+  - [x] 기본 파라미터 값 (Version: 20070901, Output: JS 등)
+  - [x] 에러 메시지 상수
+  - [x] MCP 도구 스키마 상수
+- [x] 카테고리 관련 상수/유틸리티 (src/constants/categories.ts)
+  - [x] CSV 파일 파싱 유틸리티
+  - [x] 카테고리 매핑 테이블 생성
+  - [x] 카테고리 검색/조회 유틸리티
+  - [x] 계층별 카테고리 필터링 기능
+- [x] Git 작업 완료
+  - [x] 모든 변경사항 커밋 (`feat: 타입 정의 및 상수 모듈 구현`)
+  - [x] PR 생성 (`Task 1-2: 타입 정의 및 상수 모듈 완료`) - PR #2
   - [ ] 코드 리뷰 및 main 브랜치 병합
 
 **산출물**: src/types.ts, src/constants/api.ts, src/constants/categories.ts, GitHub PR
@@ -639,7 +639,7 @@ Agent 2: Task 4-2 (에러 처리 및 로깅 강화)
 
 ## 📊 진행 상황 요약
 
-- **Phase 1**: 🔄 프로젝트 기반 구축 (2개 태스크) - Task 1-0 ✅, Task 1-1 ✅ 완료
+- **Phase 1**: ✅ 프로젝트 기반 구축 (3개 태스크) - Task 1-0 ✅, Task 1-1 ✅, Task 1-2 ✅ 완료
 - **Phase 2**: ⬜ 핵심 기능 구현 (2개 태스크)
 - **Phase 3**: ⬜ MCP 서버 구현 (2개 태스크)
 - **Phase 4**: ⬜ 품질 보증 (2개 태스크)
@@ -647,7 +647,7 @@ Agent 2: Task 4-2 (에러 처리 및 로깅 강화)
 - **Phase 6**: ⬜ 고도화 선택사항 (2개 태스크)
 
 **총 MCP 도구**: 6개 (aladin_search, aladin_book_info, aladin_bestsellers, aladin_new_books, aladin_item_list, aladin_categories)
-**전체 진행률**: 2/12 완료 (16.7%)
+**전체 진행률**: 3/13 완료 (23.1%)
 
 ---
 
