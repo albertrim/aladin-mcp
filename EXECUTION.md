@@ -206,54 +206,54 @@ Agent 2: Task 2-2 (유틸리티 모듈 구현)
 ### Task 2-1: 알라딘 API 클라이언트 구현
 **분류**: 백엔드/API통합 | **의존성**: Task 1-2 | **브랜치**: `task/2-1-api-client`
 
-- [ ] API 기본 설정 (src/client.ts)
-  - [ ] 알라딘 API 기본 URL (http://www.aladin.co.kr/ttb/api/)
-  - [ ] TTB 키 환경변수 설정 및 유효성 검증
-  - [ ] Axios 인스턴스 생성 (기본 파라미터: Version, Output, TTBKey)
-  - [ ] 요청 인터셉터 (공통 파라미터 자동 추가)
-  - [ ] 응답 인터셉터 (에러 응답 처리)
-- [ ] `searchBooks()` - ItemSearch.aspx 호출
-  - [ ] Query, QueryType, SearchTarget 파라미터 검증
-  - [ ] Sort, Cover, OptResult 옵션 처리
-  - [ ] Start, MaxResults 페이지네이션 처리
-  - [ ] HTTP GET 요청 구현
-  - [ ] JS/XML 응답 파싱
-  - [ ] totalResults, itemsPerPage 메타데이터 처리
-- [ ] `getBookDetails()` - ItemLookUp.aspx 호출
-  - [ ] ItemId 또는 ISBN13 파라미터 검증
-  - [ ] OptResult 부가 정보 옵션 처리
-  - [ ] Cover 이미지 크기 옵션 처리
-  - [ ] API 호출 구현
-  - [ ] item 배열에서 단일 객체 추출
-- [ ] `getBestsellerList()` - ItemList.aspx (Bestseller)
-  - [ ] CategoryId 분야 코드 검증
-  - [ ] SearchTarget 대상 검증 (Book, Foreign 등)
-  - [ ] Year, Month, Week 기간 파라미터 처리
-  - [ ] API 호출 및 파싱
-- [ ] `getNewReleasesList()` - ItemList.aspx (NewBook/NewSpecial)
-  - [ ] CategoryId 분야 코드 처리
-  - [ ] SearchTarget 대상 처리
-  - [ ] 날짜 기간 파라미터 처리
-  - [ ] API 호출 및 결과 처리
-- [ ] `getItemList()` - ItemList.aspx (추천/편집자 선택 등)
-  - [ ] QueryType (EditorChoice, ItemNewAll, ItemNewSpecial 등) 처리
-  - [ ] CategoryId 분야별 조회
-  - [ ] API 호출 및 결과 처리
-- [ ] 공통 유틸리티 메서드
-  - [ ] 알라딘 API 에러 응답 핸들러 (errorCode, errorMessage)
-  - [ ] TTB 키 유효성 검증 및 보안 저장
-  - [ ] 일일 호출 한도 추적 및 관리 (로컬 카운터)
-  - [ ] 요청 재시도 로직 (지수 백오프: 1초, 2초, 4초)
-  - [ ] Circuit Breaker 패턴 (연속 실패 시 차단)
-  - [ ] JS/XML 응답 파싱 공통 로직
-  - [ ] 응답 데이터 정규화 (item 객체 표준화)
-  - [ ] 입력값 Sanitization (XSS, Injection 방지)
-  - [ ] 요청 로깅 (민감 정보 마스킹)
-  - [ ] 캐싱 메커니즘 (LRU, TTL 설정)
-- [ ] Git 작업 완료
-  - [ ] 모든 변경사항 커밋 (`feat: 알라딘 API 클라이언트 구현`)
-  - [ ] PR 생성 (`Task 2-1: 알라딘 API 클라이언트 완료`)
-  - [ ] 코드 리뷰 및 main 브랜치 병합
+- [x] API 기본 설정 (src/client.ts)
+  - [x] 알라딘 API 기본 URL (http://www.aladin.co.kr/ttb/api/)
+  - [x] TTB 키 환경변수 설정 및 유효성 검증
+  - [x] Axios 인스턴스 생성 (기본 파라미터: Version, Output, TTBKey)
+  - [x] 요청 인터셉터 (공통 파라미터 자동 추가)
+  - [x] 응답 인터셉터 (에러 응답 처리)
+- [x] `searchBooks()` - ItemSearch.aspx 호출
+  - [x] Query, QueryType, SearchTarget 파라미터 검증
+  - [x] Sort, Cover, OptResult 옵션 처리
+  - [x] Start, MaxResults 페이지네이션 처리
+  - [x] HTTP GET 요청 구현
+  - [x] JS/XML 응답 파싱
+  - [x] totalResults, itemsPerPage 메타데이터 처리
+- [x] `getBookDetails()` - ItemLookUp.aspx 호출
+  - [x] ItemId 또는 ISBN13 파라미터 검증
+  - [x] OptResult 부가 정보 옵션 처리
+  - [x] Cover 이미지 크기 옵션 처리
+  - [x] API 호출 구현
+  - [x] item 배열에서 단일 객체 추출
+- [x] `getBestsellerList()` - ItemList.aspx (Bestseller)
+  - [x] CategoryId 분야 코드 검증
+  - [x] SearchTarget 대상 검증 (Book, Foreign 등)
+  - [x] Year, Month, Week 기간 파라미터 처리
+  - [x] API 호출 및 파싱
+- [x] `getNewReleasesList()` - ItemList.aspx (NewBook/NewSpecial)
+  - [x] CategoryId 분야 코드 처리
+  - [x] SearchTarget 대상 처리
+  - [x] 날짜 기간 파라미터 처리
+  - [x] API 호출 및 결과 처리
+- [x] `getItemList()` - ItemList.aspx (추천/편집자 선택 등)
+  - [x] QueryType (EditorChoice, ItemNewAll, ItemNewSpecial 등) 처리
+  - [x] CategoryId 분야별 조회
+  - [x] API 호출 및 결과 처리
+- [x] 공통 유틸리티 메서드
+  - [x] 알라딘 API 에러 응답 핸들러 (errorCode, errorMessage)
+  - [x] TTB 키 유효성 검증 및 보안 저장
+  - [x] 일일 호출 한도 추적 및 관리 (로컬 카운터)
+  - [x] 요청 재시도 로직 (지수 백오프: 1초, 2초, 4초)
+  - [x] Circuit Breaker 패턴 (연속 실패 시 차단)
+  - [x] JS/XML 응답 파싱 공통 로직
+  - [x] 응답 데이터 정규화 (item 객체 표준화)
+  - [x] 입력값 Sanitization (XSS, Injection 방지)
+  - [x] 요청 로깅 (민감 정보 마스킹)
+  - [x] 캐싱 메커니즘 (LRU, TTL 설정)
+- [x] Git 작업 완료
+  - [x] 모든 변경사항 커밋 (`feat: 알라딘 API 클라이언트 구현`)
+  - [x] PR 생성 (`Task 2-1: 알라딘 API 클라이언트 완료`) - PR #3
+  - [x] 코드 리뷰 및 main 브랜치 병합
 
 **산출물**: src/client.ts (완전한 API 클라이언트), GitHub PR
 
@@ -262,34 +262,34 @@ Agent 2: Task 2-2 (유틸리티 모듈 구현)
 ### Task 2-2: 유틸리티 모듈 구현
 **분류**: 백엔드/유틸리티 | **의존성**: Task 1-2 | **브랜치**: `task/2-2-utilities`
 
-- [ ] 검증 유틸리티 (src/utils/validators.ts)
-  - [ ] ISBN 검증 함수 (ISBN-10, ISBN-13, ItemId)
-  - [ ] CategoryId 분야 코드 검증 (CSV 파일 기반 실제 CID 확인)
-  - [ ] 카테고리 계층 구조 검증 (1Depth~5Depth)
-  - [ ] 카테고리명으로 CID 조회 기능
-  - [ ] SearchTarget 검증 (Book, Foreign, eBook, Music, DVD)
-  - [ ] QueryType 검증 (Title, Author, Publisher, Keyword)
-  - [ ] Sort 옵션 검증 (Accuracy, PublishTime, Title, SalesPoint, CustomerRating)
-  - [ ] Cover 크기 검증 (None, Small, MidBig, Big)
-  - [ ] OptResult 옵션 검증 (authors, fulldescription, Toc, Story, categoryIdList)
-  - [ ] 날짜 형식 검증 (Year, Month, Week)
-  - [ ] 페이지네이션 파라미터 검증 (Start, MaxResults)
-  - [ ] TTB 키 형식 검증
-- [ ] 포맷터 유틸리티 (src/utils/formatters.ts)
-  - [ ] MCP 응답 표준 포맷터
-  - [ ] 도서 정보 포맷터
-  - [ ] 에러 메시지 포맷터
-  - [ ] 날짜 포맷터
-  - [ ] 가격 정보 포맷터
-- [ ] 로깅 유틸리티 (src/utils/logger.ts)
-  - [ ] 로깅 레벨 설정 (debug, info, warn, error)
-  - [ ] API 호출 로깅
-  - [ ] 에러 로깅
-  - [ ] 사용량 통계 로깅
-- [ ] Git 작업 완료
-  - [ ] 모든 변경사항 커밋 (`feat: 유틸리티 모듈 구현`)
-  - [ ] PR 생성 (`Task 2-2: 유틸리티 모듈 완료`)
-  - [ ] 코드 리뷰 및 main 브랜치 병합
+- [x] 검증 유틸리티 (src/utils/validators.ts)
+  - [x] ISBN 검증 함수 (ISBN-10, ISBN-13, ItemId)
+  - [x] CategoryId 분야 코드 검증 (CSV 파일 기반 실제 CID 확인)
+  - [x] 카테고리 계층 구조 검증 (1Depth~5Depth)
+  - [x] 카테고리명으로 CID 조회 기능
+  - [x] SearchTarget 검증 (Book, Foreign, eBook, Music, DVD)
+  - [x] QueryType 검증 (Title, Author, Publisher, Keyword)
+  - [x] Sort 옵션 검증 (Accuracy, PublishTime, Title, SalesPoint, CustomerRating)
+  - [x] Cover 크기 검증 (None, Small, MidBig, Big)
+  - [x] OptResult 옵션 검증 (authors, fulldescription, Toc, Story, categoryIdList)
+  - [x] 날짜 형식 검증 (Year, Month, Week)
+  - [x] 페이지네이션 파라미터 검증 (Start, MaxResults)
+  - [x] TTB 키 형식 검증
+- [x] 포맷터 유틸리티 (src/utils/formatters.ts)
+  - [x] MCP 응답 표준 포맷터
+  - [x] 도서 정보 포맷터
+  - [x] 에러 메시지 포맷터
+  - [x] 날짜 포맷터
+  - [x] 가격 정보 포맷터
+- [x] 로깅 유틸리티 (src/utils/logger.ts)
+  - [x] 로깅 레벨 설정 (debug, info, warn, error)
+  - [x] API 호출 로깅
+  - [x] 에러 로깅
+  - [x] 사용량 통계 로깅
+- [x] Git 작업 완료
+  - [x] 모든 변경사항 커밋 (`feat: 유틸리티 모듈 구현`)
+  - [x] PR 생성 (`Task 2-2: 유틸리티 모듈 완료`) - PR #4
+  - [x] 코드 리뷰 및 main 브랜치 병합
 
 **산출물**: src/utils/ 폴더의 모든 유틸리티 파일들, GitHub PR
 
@@ -640,14 +640,14 @@ Agent 2: Task 4-2 (에러 처리 및 로깅 강화)
 ## 📊 진행 상황 요약
 
 - **Phase 1**: ✅ 프로젝트 기반 구축 (3개 태스크) - Task 1-0 ✅, Task 1-1 ✅, Task 1-2 ✅ 완료
-- **Phase 2**: ⬜ 핵심 기능 구현 (2개 태스크)
+- **Phase 2**: ✅ 핵심 기능 구현 (2개 태스크) - Task 2-1 ✅, Task 2-2 ✅ 완료
 - **Phase 3**: ⬜ MCP 서버 구현 (2개 태스크)
 - **Phase 4**: ⬜ 품질 보증 (2개 태스크)
 - **Phase 5**: ⬜ 문서화 및 배포 (2개 태스크)
 - **Phase 6**: ⬜ 고도화 선택사항 (2개 태스크)
 
 **총 MCP 도구**: 6개 (aladin_search, aladin_book_info, aladin_bestsellers, aladin_new_books, aladin_item_list, aladin_categories)
-**전체 진행률**: 3/13 완료 (23.1%)
+**전체 진행률**: 5/13 완료 (38.5%)
 
 ---
 
