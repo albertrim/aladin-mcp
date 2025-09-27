@@ -68,7 +68,7 @@ export async function handleAladinNewBooks(input: AladinNewBooksInput): Promise<
 
     // 기간 정보 생성
     // 기간 정보는 신간 도구에서는 별도 제공하지 않음
-    let period: string | undefined = undefined;
+    const period: string | undefined = undefined;
 
     // 카테고리명 추출 (첫 번째 도서에서)
     let categoryName: string | undefined;

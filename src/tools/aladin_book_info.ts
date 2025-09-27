@@ -7,7 +7,6 @@
 import type {
   AladinBookInfoInput,
   McpToolResponse,
-  LookupResponse,
   CompleteBookItem,
   ValidationResult
 } from '../types.js';
