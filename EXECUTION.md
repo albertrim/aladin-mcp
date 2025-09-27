@@ -71,11 +71,11 @@
 ## 🏗️ Phase 1: 프로젝트 기반 구축
 
 ### 🔧 Task 1-0: Git 저장소 초기 설정
-- [ ] GitHub 저장소 생성 (`aladin-mcp-server`)
-- [ ] 로컬 Git 저장소 초기화
-- [ ] 초기 커밋 (README.md, .gitignore 등)
-- [ ] GitHub 저장소와 연결 (origin 설정)
-- [ ] 브랜치 보호 규칙 설정 (main 브랜치)
+- [x] GitHub 저장소 생성 (`aladin-mcp`)
+- [x] 로컬 Git 저장소 초기화
+- [x] 초기 커밋 (README.md, .gitignore 등)
+- [x] GitHub 저장소와 연결 (origin 설정)
+- [x] 브랜치 보호 규칙 설정 (main 브랜치)
 
 ### Task 1-1: 프로젝트 초기 설정 및 구조 생성
 **분류**: 백엔드/설정 | **의존성**: Git 저장소 설정 | **브랜치**: `task/1-1-project-setup`
@@ -640,7 +640,7 @@ Agent 2: Task 4-2 (에러 처리 및 로깅 강화)
 
 ## 📊 진행 상황 요약
 
-- **Phase 1**: ⬜ 프로젝트 기반 구축 (2개 태스크)
+- **Phase 1**: 🔄 프로젝트 기반 구축 (2개 태스크) - Task 1-0 ✅ 완료
 - **Phase 2**: ⬜ 핵심 기능 구현 (2개 태스크)
 - **Phase 3**: ⬜ MCP 서버 구현 (2개 태스크)
 - **Phase 4**: ⬜ 품질 보증 (2개 태스크)
@@ -648,7 +648,7 @@ Agent 2: Task 4-2 (에러 처리 및 로깅 강화)
 - **Phase 6**: ⬜ 고도화 선택사항 (2개 태스크)
 
 **총 MCP 도구**: 6개 (aladin_search, aladin_book_info, aladin_bestsellers, aladin_new_books, aladin_item_list, aladin_categories)
-**전체 진행률**: 0/10 완료 (0%)
+**전체 진행률**: 1/12 완료 (8.3%)
 
 ---
 
