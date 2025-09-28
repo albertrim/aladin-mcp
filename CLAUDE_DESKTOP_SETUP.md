@@ -42,8 +42,9 @@ Claude Desktop의 설정 파일에 다음 내용을 추가합니다:
     "aladin-mcp": {
       "command": "node",
       "args": [
-        "C:\\Users\\alber\\Projects\\aladin-mcp\\dist\\index.js"
+        "dist/index.js"
       ],
+      "cwd": "C:\\Users\\alber\\Projects\\aladin-mcp",
       "env": {
         "TTB_KEY": "ttbalbert.rim1712001",
         "NODE_ENV": "development",
@@ -54,9 +55,11 @@ Claude Desktop의 설정 파일에 다음 내용을 추가합니다:
 }
 ```
 
-**주의사항**:
-- 경로에서 백슬래시(`\`)는 두 번(`\\`) 사용해야 합니다
-- 절대 경로를 사용해야 합니다
+**주요 설정 설명**:
+- `command`: Node.js 실행 명령어
+- `args`: 실행할 JavaScript 파일 (상대 경로)
+- `cwd`: 작업 디렉토리 (절대 경로, 백슬래시 `\\` 이스케이프 필요)
+- `env`: 환경변수 (TTB_KEY, NODE_ENV, LOG_LEVEL)
 
 ### 4. Claude Desktop 재시작
 
