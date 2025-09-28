@@ -52,7 +52,7 @@ aladin-mcp-server/
 ## 🔑 환경 설정
 
 ### 필수 환경 변수
-- **TTB_KEY**: `ttbalbert.rim1712001` (알라딘 API 키)
+- **TTB_KEY**: `your_aladin_api_key_here` (알라딘 API 키)
 - **NODE_ENV**: `development` 또는 `production`
 - **LOG_LEVEL**: `debug`, `info`, `warn`, `error`
 
