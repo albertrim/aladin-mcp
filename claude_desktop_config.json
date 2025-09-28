@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "aladin-mcp": {
+      "command": "node",
+      "args": [
+        "dist/index.js" 
+      ],
+      "cwd": "C:\\Users\\alber\\Projects\\aladin-mcp",
+      "env": {
+        "TTB_KEY": "ttbalbert.rim1712001",
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "info"
+      }
+    }
+  }
+}
