@@ -135,7 +135,7 @@ Claude Desktop 설정 파일을 직접 편집:
       ],
       "cwd": "C:\\path\\to\\aladin-mcp",
       "env": {
-        "TTB_KEY": "ttbalbert.rim1712001",
+        "TTB_KEY": "your_aladin_api_key_here",
         "NODE_ENV": "development",
         "LOG_LEVEL": "info"
       }

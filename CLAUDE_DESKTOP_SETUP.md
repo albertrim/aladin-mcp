@@ -7,7 +7,7 @@
 1. **Node.js 18.0.0 이상** 설치 확인
 2. **pnpm** 패키지 매니저 설치
 3. **Claude Desktop** 앱 설치 (https://claude.ai/download)
-4. **알라딘 TTB 키** 준비 (`ttbalbert.rim1712001`)
+4. **알라딘 TTB 키** 준비 ([알라딘 OpenAPI](http://blog.aladin.co.kr/openapi)에서 발급)
 
 ## 🚀 단계별 설정
 
@@ -24,7 +24,7 @@ pnpm build
 `.env` 파일을 생성하고 다음 내용을 설정:
 
 ```env
-TTB_KEY=ttbalbert.rim1712001
+TTB_KEY=your_aladin_api_key_here
 NODE_ENV=development
 LOG_LEVEL=info
 ```
@@ -46,7 +46,7 @@ Claude Desktop의 설정 파일에 다음 내용을 추가합니다:
       ],
       "cwd": "C:\\Users\\alber\\Projects\\aladin-mcp",
       "env": {
-        "TTB_KEY": "ttbalbert.rim1712001",
+        "TTB_KEY": "your_aladin_api_key_here",
         "NODE_ENV": "development",
         "LOG_LEVEL": "info"
       }
