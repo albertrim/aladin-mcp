@@ -358,30 +358,30 @@ Agent 2: Task 2-2 (유틸리티 모듈 구현)
 ### Task 3-2: MCP 서버 메인 모듈 구현
 **분류**: 백엔드/MCP | **의존성**: Task 3-1 | **브랜치**: `task/3-2-mcp-server`
 
-- [ ] MCP 서버 초기화 (src/index.ts)
-  - [ ] MCP 서버 인스턴스 생성
-  - [ ] 서버 메타데이터 설정 (이름, 버전)
-  - [ ] stdio 전송 설정
-- [ ] 도구 등록
-  - [ ] 각 도구의 스키마 정의
-  - [ ] 도구 핸들러 함수 구현
-  - [ ] 도구 등록 및 바인딩
-- [ ] 서버 실행
-  - [ ] 서버 시작 로직 구현
-  - [ ] 연결 상태 관리 및 헬스체크
-  - [ ] 종료 신호 처리 (SIGINT, SIGTERM)
-  - [ ] Graceful Shutdown 구현
-  - [ ] 프로세스 모니터링 (메모리, CPU 사용률)
-- [ ] 서버 보안 및 안정성
-  - [ ] 입력값 검증 미들웨어
-  - [ ] Rate Limiting (도구별 호출 제한)
-  - [ ] 에러 경계(Error Boundaries) 설정
-  - [ ] 로그 레벨별 출력 제어
-  - [ ] 민감 정보 로깅 방지
-- [ ] Git 작업 완료
-  - [ ] 모든 변경사항 커밋 (`feat: MCP 서버 메인 모듈 구현`)
-  - [ ] PR 생성 (`Task 3-2: MCP 서버 메인 모듈 완료`)
-  - [ ] 코드 리뷰 및 main 브랜치 병합
+- [x] MCP 서버 초기화 (src/index.ts)
+  - [x] MCP 서버 인스턴스 생성
+  - [x] 서버 메타데이터 설정 (이름, 버전)
+  - [x] stdio 전송 설정
+- [x] 도구 등록
+  - [x] 각 도구의 스키마 정의
+  - [x] 도구 핸들러 함수 구현
+  - [x] 도구 등록 및 바인딩
+- [x] 서버 실행
+  - [x] 서버 시작 로직 구현
+  - [x] 연결 상태 관리 및 헬스체크
+  - [x] 종료 신호 처리 (SIGINT, SIGTERM)
+  - [x] Graceful Shutdown 구현
+  - [x] 프로세스 모니터링 (메모리, CPU 사용률)
+- [x] 서버 보안 및 안정성
+  - [x] 입력값 검증 미들웨어
+  - [x] Rate Limiting (도구별 호출 제한)
+  - [x] 에러 경계(Error Boundaries) 설정
+  - [x] 로그 레벨별 출력 제어
+  - [x] 민감 정보 로깅 방지
+- [x] Git 작업 완료
+  - [x] 모든 변경사항 커밋 (`feat: MCP 서버 메인 모듈 구현`)
+  - [x] PR 생성 (`Task 3-2: MCP 서버 메인 모듈 완료`) - PR #6
+  - [x] 코드 리뷰 및 main 브랜치 병합
 
 **산출물**: src/index.ts (메인 서버 파일), GitHub PR
 
@@ -641,13 +641,13 @@ Agent 2: Task 4-2 (에러 처리 및 로깅 강화)
 
 - **Phase 1**: ✅ 프로젝트 기반 구축 (3개 태스크) - Task 1-0 ✅, Task 1-1 ✅, Task 1-2 ✅ 완료
 - **Phase 2**: ✅ 핵심 기능 구현 (2개 태스크) - Task 2-1 ✅, Task 2-2 ✅ 완료
-- **Phase 3**: 🔄 MCP 서버 구현 (2개 태스크) - Task 3-1 ✅ 완료 (PR #5 병합), Task 3-2 ⬜ 대기중
+- **Phase 3**: ✅ MCP 서버 구현 (2개 태스크) - Task 3-1 ✅ 완료 (PR #5 병합), Task 3-2 ✅ 완료 (PR #6)
 - **Phase 4**: ⬜ 품질 보증 (2개 태스크)
 - **Phase 5**: ⬜ 문서화 및 배포 (2개 태스크)
 - **Phase 6**: ⬜ 고도화 선택사항 (2개 태스크)
 
 **총 MCP 도구**: 6개 (aladin_search, aladin_book_info, aladin_bestsellers, aladin_new_books, aladin_item_list, aladin_categories) ✅ 완료
-**전체 진행률**: 6/13 완료 (46.2%)
+**전체 진행률**: 7/13 완료 (53.8%)
 
 ---
 
