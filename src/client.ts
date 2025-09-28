@@ -43,6 +43,9 @@ import {
   CLIENT_ERROR_MESSAGES,
   VALIDATION_RULES
 } from './constants/api.js';
+import { getErrorHandler } from './utils/error-handler.js';
+import { getRateLimiter, checkApiRateLimit, recordApiUsage } from './utils/rate-limiter.js';
+import { getLogger } from './utils/logger.js';
 
 /**
  * 알라딘 API 클라이언트 클래스
@@ -56,6 +59,9 @@ export class AladinApiClient {
   private circuitBreakerLastFailure: Date | null = null;
   private readonly CIRCUIT_BREAKER_THRESHOLD = 5;
   private readonly CIRCUIT_BREAKER_TIMEOUT = 60000; // 1분
+  private errorHandler = getErrorHandler();
+  private rateLimiter = getRateLimiter();
+  private logger = getLogger();
 
   constructor(ttbKey?: string) {
     this.ttbKey = ttbKey || process.env.TTB_KEY || DEFAULT_TTB_KEY;
@@ -97,7 +103,6 @@ export class AladinApiClient {
     this.axios.interceptors.response.use(
       (response) => {
         this.circuitBreakerFailures = 0; // 성공 시 실패 카운트 리셋
-        this.updateApiUsage();
         return response;
       },
       (error) => {
@@ -111,26 +116,30 @@ export class AladinApiClient {
    * 도서 검색 (ItemSearch.aspx)
    */
   async searchBooks(params: Omit<SearchBooksParams, 'TTBKey' | 'Version' | 'Output'>): Promise<SearchResponse> {
-    // 입력값 검증
-    const validation = this.validateSearchParams(params);
-    if (!validation.isValid) {
-      throw this.createStandardError(300, validation.errors.join(', '));
-    }
-
-    // 캐시 확인
-    const cacheKey = this.createCacheKey('search', params);
-    const cached = this.getFromCache<SearchResponse>(cacheKey);
-    if (cached) {
-      return cached;
-    }
-
-    // Circuit Breaker 확인
-    this.checkCircuitBreaker();
-
-    // API 호출 한도 확인
-    this.checkApiLimit();
+    const startTime = Date.now();
+    const requestId = this.logger.logApiCallStart(API_ENDPOINTS.ITEM_SEARCH, params);
 
     try {
+      // 입력값 검증
+      const validation = this.validateSearchParams(params);
+      if (!validation.isValid) {
+        throw this.errorHandler.handleValidationError(validation);
+      }
+
+      // 캐시 확인
+      const cacheKey = this.createCacheKey('search', params);
+      const cached = this.getFromCache<SearchResponse>(cacheKey);
+      if (cached) {
+        this.logger.debug('캐시에서 검색 결과 반환', { cacheKey, requestId });
+        return cached;
+      }
+
+      // API 호출 제한 확인
+      await checkApiRateLimit(this.ttbKey);
+
+      // Circuit Breaker 확인
+      this.checkCircuitBreaker();
+
       const response = await this.retryRequest(() =>
         this.axios.get<SearchResponse>(API_ENDPOINTS.ITEM_SEARCH, { params })
       );
@@ -140,9 +149,20 @@ export class AladinApiClient {
       // 캐시에 저장
       this.setCache(cacheKey, data, CACHE_CONFIG.SEARCH_TTL);
 
+      // 성공 로깅
+      const responseTime = Date.now() - startTime;
+      this.logger.logApiCallEnd(requestId, API_ENDPOINTS.ITEM_SEARCH, params, responseTime, true);
+      recordApiUsage(this.ttbKey, true, responseTime);
+
       return data;
     } catch (error) {
-      throw this.handleApiError(error);
+      const responseTime = Date.now() - startTime;
+      const standardError = this.handleApiError(error);
+
+      this.logger.logApiCallEnd(requestId, API_ENDPOINTS.ITEM_SEARCH, params, responseTime, false, standardError);
+      recordApiUsage(this.ttbKey, false, responseTime);
+
+      throw standardError;
     }
   }
 
@@ -150,26 +170,30 @@ export class AladinApiClient {
    * 도서 상세 정보 조회 (ItemLookUp.aspx)
    */
   async getBookDetails(params: Omit<BookDetailsParams, 'TTBKey' | 'Version' | 'Output'>): Promise<CompleteBookItem | null> {
-    // 입력값 검증
-    const validation = this.validateLookupParams(params);
-    if (!validation.isValid) {
-      throw this.createStandardError(300, validation.errors.join(', '));
-    }
-
-    // 캐시 확인
-    const cacheKey = this.createCacheKey('lookup', params);
-    const cached = this.getFromCache<CompleteBookItem>(cacheKey);
-    if (cached) {
-      return cached;
-    }
-
-    // Circuit Breaker 확인
-    this.checkCircuitBreaker();
-
-    // API 호출 한도 확인
-    this.checkApiLimit();
+    const startTime = Date.now();
+    const requestId = this.logger.logApiCallStart(API_ENDPOINTS.ITEM_LOOKUP, params);
 
     try {
+      // 입력값 검증
+      const validation = this.validateLookupParams(params);
+      if (!validation.isValid) {
+        throw this.errorHandler.handleValidationError(validation);
+      }
+
+      // 캐시 확인
+      const cacheKey = this.createCacheKey('lookup', params);
+      const cached = this.getFromCache<CompleteBookItem>(cacheKey);
+      if (cached) {
+        this.logger.debug('캐시에서 도서 상세 정보 반환', { cacheKey, requestId });
+        return cached;
+      }
+
+      // API 호출 제한 확인
+      await checkApiRateLimit(this.ttbKey);
+
+      // Circuit Breaker 확인
+      this.checkCircuitBreaker();
+
       const response = await this.retryRequest(() =>
         this.axios.get<LookupResponse>(API_ENDPOINTS.ITEM_LOOKUP, { params })
       );
@@ -180,9 +204,20 @@ export class AladinApiClient {
       // 캐시에 저장
       this.setCache(cacheKey, data, CACHE_CONFIG.LOOKUP_TTL);
 
+      // 성공 로깅
+      const responseTime = Date.now() - startTime;
+      this.logger.logApiCallEnd(requestId, API_ENDPOINTS.ITEM_LOOKUP, params, responseTime, true);
+      recordApiUsage(this.ttbKey, true, responseTime);
+
       return data;
     } catch (error) {
-      throw this.handleApiError(error);
+      const responseTime = Date.now() - startTime;
+      const standardError = this.handleApiError(error);
+
+      this.logger.logApiCallEnd(requestId, API_ENDPOINTS.ITEM_LOOKUP, params, responseTime, false, standardError);
+      recordApiUsage(this.ttbKey, false, responseTime);
+
+      throw standardError;
     }
   }
 
@@ -205,11 +240,11 @@ export class AladinApiClient {
       return cached;
     }
 
+    // API 호출 제한 확인
+    await checkApiRateLimit(this.ttbKey);
+
     // Circuit Breaker 확인
     this.checkCircuitBreaker();
-
-    // API 호출 한도 확인
-    this.checkApiLimit();
 
     try {
       const response = await this.retryRequest(() =>
@@ -244,11 +279,11 @@ export class AladinApiClient {
       return cached;
     }
 
+    // API 호출 제한 확인
+    await checkApiRateLimit(this.ttbKey);
+
     // Circuit Breaker 확인
     this.checkCircuitBreaker();
-
-    // API 호출 한도 확인
-    this.checkApiLimit();
 
     try {
       const response = await this.retryRequest(() =>
@@ -283,11 +318,11 @@ export class AladinApiClient {
       return cached;
     }
 
+    // API 호출 제한 확인
+    await checkApiRateLimit(this.ttbKey);
+
     // Circuit Breaker 확인
     this.checkCircuitBreaker();
-
-    // API 호출 한도 확인
-    this.checkApiLimit();
 
     try {
       const response = await this.retryRequest(() =>
@@ -488,36 +523,24 @@ export class AladinApiClient {
       if (axiosError.response?.data) {
         const apiError = axiosError.response.data as AladinApiError;
         if (apiError.errorCode) {
-          return this.createStandardError(
-            apiError.errorCode as ErrorCode,
-            ERROR_MESSAGES[apiError.errorCode as ErrorCode] || apiError.errorMessage,
-            apiError
-          );
+          return this.errorHandler.handleAladinApiError(apiError);
         }
       }
 
-      // HTTP 에러 처리
-      if (axiosError.code === 'ECONNREFUSED' || axiosError.code === 'ENOTFOUND') {
-        return this.createStandardError(900, CLIENT_ERROR_MESSAGES.NETWORK_ERROR);
+      // 네트워크 에러 처리
+      if (axiosError.code) {
+        return this.errorHandler.handleNetworkError(axiosError);
       }
 
-      if (axiosError.code === 'ECONNABORTED') {
-        return this.createStandardError(900, CLIENT_ERROR_MESSAGES.TIMEOUT_ERROR);
-      }
-
-      // 기타 HTTP 에러
+      // HTTP 상태 코드 에러 처리
       const status = axiosError.response?.status;
-      if (status === 400) {
-        return this.createStandardError(300, CLIENT_ERROR_MESSAGES.INVALID_PARAMETER);
-      } else if (status === 429) {
-        return this.createStandardError(901, CLIENT_ERROR_MESSAGES.RATE_LIMIT_EXCEEDED);
-      } else if (status && status >= 500) {
-        return this.createStandardError(900, CLIENT_ERROR_MESSAGES.NETWORK_ERROR);
+      if (status) {
+        return this.errorHandler.handleHttpStatusError(status, axiosError.response?.data);
       }
     }
 
     // 기타 에러
-    return this.createStandardError(900, error.message || '알 수 없는 오류가 발생했습니다');
+    return this.errorHandler.handleGenericError(error, 'API_CALL');
   }
 
   /**
@@ -539,18 +562,47 @@ export class AladinApiClient {
     requestFn: () => Promise<AxiosResponse<T>>,
     retries: number = HTTP_CONFIG.MAX_RETRIES
   ): Promise<AxiosResponse<T>> {
+    const maxRetries = HTTP_CONFIG.MAX_RETRIES;
+    const attempt = maxRetries - retries + 1;
+
     try {
+      this.logger.debug('API 요청 시도', { attempt, retriesLeft: retries });
       return await requestFn();
     } catch (error) {
-      if (retries > 0 && this.isRetryableError(error)) {
-        const delay = Math.min(
-          HTTP_CONFIG.RETRY_DELAY * Math.pow(HTTP_CONFIG.RETRY_MULTIPLIER, HTTP_CONFIG.MAX_RETRIES - retries),
-          HTTP_CONFIG.MAX_RETRY_DELAY
-        );
+      // 에러 처리 및 재시도 가능 여부 확인
+      const isRetryable = this.isRetryableError(error);
+      const hasRetriesLeft = retries > 0;
+
+      this.logger.warn('API 요청 실패', {
+        attempt,
+        retriesLeft: retries,
+        isRetryable,
+        error: error instanceof Error ? error.message : String(error)
+      });
+
+      if (hasRetriesLeft && isRetryable) {
+        // 지수 백오프 계산 (개선된 지터 포함)
+        const baseDelay = HTTP_CONFIG.RETRY_DELAY * Math.pow(HTTP_CONFIG.RETRY_MULTIPLIER, attempt - 1);
+        const jitter = Math.random() * 0.1 * baseDelay; // 10% 지터
+        const delay = Math.min(baseDelay + jitter, HTTP_CONFIG.MAX_RETRY_DELAY);
+
+        this.logger.info('재시도 대기 중', {
+          attempt,
+          delayMs: Math.round(delay),
+          nextAttempt: attempt + 1
+        });
 
         await new Promise(resolve => setTimeout(resolve, delay));
         return this.retryRequest(requestFn, retries - 1);
       }
+
+      // 재시도 불가능하거나 재시도 횟수 초과
+      this.logger.error('재시도 실패 - 최종 포기', undefined, {
+        totalAttempts: attempt,
+        finalError: error instanceof Error ? error.message : String(error),
+        isRetryable
+      });
+
       throw error;
     }
   }
@@ -594,30 +646,6 @@ export class AladinApiClient {
     }
   }
 
-  /**
-   * API 호출 한도 확인
-   */
-  private checkApiLimit(): void {
-    // 일일 리셋 확인
-    const now = new Date();
-    if (now.getDate() !== this.apiUsage.lastReset.getDate()) {
-      this.apiUsage.dailyCount = 0;
-      this.apiUsage.lastReset = now;
-    }
-
-    // 호출 한도 확인
-    if (this.apiUsage.dailyCount >= this.apiUsage.dailyLimit) {
-      throw this.createStandardError(901, CLIENT_ERROR_MESSAGES.RATE_LIMIT_EXCEEDED);
-    }
-  }
-
-  /**
-   * API 사용량 업데이트
-   */
-  private updateApiUsage(): void {
-    this.apiUsage.dailyCount++;
-    this.apiUsage.lastCall = new Date();
-  }
 
   /**
    * 캐시 키 생성

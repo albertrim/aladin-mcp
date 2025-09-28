@@ -15,8 +15,10 @@ import { AladinApiClient } from '../client.js';
 import { validateAladinSearchInput } from '../utils/validators.js';
 import { formatMcpSuccessResponse, formatMcpErrorResponse, formatBookItem } from '../utils/formatters.js';
 import { getLogger } from '../utils/logger.js';
+import { getErrorHandler } from '../utils/error-handler.js';
 
 const logger = getLogger();
+const errorHandler = getErrorHandler();
 
 /**
  * aladin_search 도구 핸들러
@@ -31,21 +33,19 @@ export async function handleAladinSearch(input: AladinSearchInput): Promise<McpT
   const startTime = Date.now();
 
   try {
+    // 도구 호출 로깅
+    logger.logToolCall('aladin_search', input, true, 0);
+
     // 입력값 검증
-    logger.info('aladin_search 입력값 검증', { query: input.query });
+    logger.info('aladin_search 입력값 검증 시작', { query: input.query });
 
     const validation: ValidationResult = await validateAladinSearchInput(input);
     if (!validation.isValid) {
-      logger.warn('aladin_search 입력값 검증 실패', {
-        errors: validation.errors,
-        input
-      });
+      const validationError = errorHandler.handleValidationError(validation);
 
-      return formatMcpErrorResponse({
-        code: 300,
-        message: `입력값 검증 실패: ${validation.errors.join(', ')}`,
-        timestamp: new Date().toISOString()
-      });
+      logger.logToolCall('aladin_search', input, false, Date.now() - startTime, validationError);
+
+      return formatMcpErrorResponse(validationError);
     }
 
     // API 클라이언트 초기화
@@ -64,7 +64,7 @@ export async function handleAladinSearch(input: AladinSearchInput): Promise<McpT
       OptResult: input.optResult || []
     };
 
-    logger.info('aladin_search API 요청', { searchParams });
+    logger.info('aladin_search API 호출 시작', { searchParams });
 
     // 알라딘 API 호출
     const response: SearchResponse = await client.searchBooks(searchParams);
@@ -80,11 +80,13 @@ export async function handleAladinSearch(input: AladinSearchInput): Promise<McpT
       query: response.query
     };
 
-    const endTime = Date.now();
+    const responseTime = Date.now() - startTime;
+
+    logger.logToolCall('aladin_search', input, true, responseTime);
     logger.info('aladin_search 성공', {
       resultCount: formattedBooks.length,
       totalResults: response.totalResults,
-      responseTime: endTime - startTime
+      responseTime
     });
 
     return formatMcpSuccessResponse(result, {
@@ -95,18 +97,14 @@ export async function handleAladinSearch(input: AladinSearchInput): Promise<McpT
     });
 
   } catch (error: any) {
-    const endTime = Date.now();
+    const responseTime = Date.now() - startTime;
 
-    logger.error('aladin_search 실행 중 오류 발생', error, {
-      input,
-      responseTime: endTime - startTime
-    });
+    // 에러 처리 및 로깅
+    const standardError = errorHandler.handleMcpProtocolError('aladin_search', error);
 
-    return formatMcpErrorResponse({
-      code: error.code || 900,
-      message: `도서 검색 중 오류가 발생했습니다: ${error.message}`,
-      timestamp: new Date().toISOString()
-    });
+    logger.logToolCall('aladin_search', input, false, responseTime, standardError);
+
+    return formatMcpErrorResponse(standardError);
   }
 }
 
