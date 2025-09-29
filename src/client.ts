@@ -107,10 +107,21 @@ export class AladinApiClient {
         // 알라딘 API가 JSON 문자열로 응답하는 경우 파싱
         if (typeof response.data === 'string') {
           try {
+            console.error('DEBUG: JSON 파싱 시도, 응답 길이:', response.data.length);
+            console.error('DEBUG: 응답 시작 100자:', response.data.substring(0, 100));
+            console.error('DEBUG: 응답 끝 100자:', response.data.substring(Math.max(0, response.data.length - 100)));
+
             response.data = JSON.parse(response.data);
+            console.error('DEBUG: JSON 파싱 성공');
           } catch (parseError) {
-            console.error('DEBUG: JSON 파싱 실패, 원본 응답:', response.data);
-            throw this.createStandardError(900, 'JSON 파싱 실패', parseError);
+            console.error('DEBUG: JSON 파싱 실패!');
+            console.error('DEBUG: 파싱 에러:', parseError);
+            console.error('DEBUG: 원본 응답 전체:', response.data);
+            console.error('DEBUG: 응답 타입:', typeof response.data);
+            console.error('DEBUG: 응답 길이:', response.data.length);
+
+            const errorMessage = parseError instanceof Error ? parseError.message : String(parseError);
+            throw this.createStandardError(900, `JSON 파싱 실패: ${errorMessage}`, parseError);
           }
         }
 
@@ -151,9 +162,14 @@ export class AladinApiClient {
       // Circuit Breaker 확인
       this.checkCircuitBreaker();
 
+      console.error('DEBUG: 알라딘 API 호출 시작');
+      console.error('DEBUG: 요청 파라미터:', params);
+
       const response = await this.retryRequest(() =>
         this.axios.get<SearchResponse>(API_ENDPOINTS.ITEM_SEARCH, { params })
       );
+
+      console.error('DEBUG: 알라딘 API 응답 수신, 타입:', typeof response.data);
 
       const data = this.normalizeSearchResponse(response.data);
 
