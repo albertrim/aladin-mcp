@@ -12,6 +12,8 @@ import {
   CallToolRequest,
   CallToolResult,
   ListToolsRequestSchema,
+  InitializeRequestSchema,
+  InitializeRequest
 } from '@modelcontextprotocol/sdk/types.js';
 import dotenv from 'dotenv';
 
@@ -126,6 +128,22 @@ class AladinMcpServer {
    * MCP 서버 핸들러 설정
    */
   private setupHandlers(): void {
+    // 초기화 요청 핸들러
+    this.server.setRequestHandler(InitializeRequestSchema, async (request: InitializeRequest) => {
+      this.logger.info('MCP 초기화 요청 수신', {
+        protocolVersion: request.params.protocolVersion,
+        clientInfo: request.params.clientInfo
+      });
+
+      return {
+        protocolVersion: '2025-06-18',
+        serverInfo: SERVER_INFO,
+        capabilities: {
+          tools: {}
+        }
+      };
+    });
+
     // 도구 목록 요청 핸들러
     this.server.setRequestHandler(ListToolsRequestSchema, async () => {
       this.logger.debug('도구 목록 요청 수신');
