@@ -45,8 +45,12 @@ import {
 import { getLogger, initializeLogger } from './utils/logger.js';
 import type { StandardError } from './types.js';
 
-// 환경변수 로드
-dotenv.config();
+// 환경변수 로드 (MCP에서는 stdout이 JSON 전용이므로 조용하게 로드)
+// dotenv의 모든 출력을 억제
+const originalConsole = console.log;
+console.log = () => {}; // 임시로 console.log 비활성화
+dotenv.config({ debug: false });
+console.log = originalConsole; // console.log 복원
 
 // ===== 서버 설정 =====
 
@@ -386,7 +390,7 @@ class AladinMcpServer {
       this.logger.close();
 
       const shutdownTime = Date.now() - shutdownStartTime;
-      console.log(`알라딘 MCP 서버가 정상적으로 종료되었습니다 (${shutdownTime}ms)`);
+      console.error(`알라딘 MCP 서버가 정상적으로 종료되었습니다 (${shutdownTime}ms)`);
 
       process.exit(0);
     } catch (error: any) {
