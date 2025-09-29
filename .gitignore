@@ -105,3 +105,9 @@ Thumbs.db
 *.log
 debug.log
 error.log
+
+# Cache
+.jest-cache/
+node_modules/.cache/
+
+*.local*

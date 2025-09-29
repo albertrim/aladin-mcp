@@ -5,7 +5,7 @@
  * - 기본 URL: http://www.aladin.co.kr/ttb/api/
  * - API 버전: 20070901 (고정)
  * - 일일 호출 한도: 5,000회
- * - TTB 키: ttbalbert.rim1712001
+ * - TTB 키: 환경변수에서 설정
  */
 
 import type {
@@ -55,7 +55,7 @@ export const DAILY_API_LIMIT = 5000;
 /**
  * 기본 TTB 키 (환경변수에서 설정)
  */
-export const DEFAULT_TTB_KEY = 'ttbalbert.rim1712001';
+export const DEFAULT_TTB_KEY = process.env.TTB_KEY || '';
 
 // ===== 검색 관련 상수 =====
 

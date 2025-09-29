@@ -1,8 +1,10 @@
 {
+  "_comment": "Claude Desktop 설정 예시 파일 - 실제 사용 시 경로를 프로젝트 위치에 맞게 수정하세요",
   "mcpServers": {
     "aladin-mcp": {
       "command": "node",
-      "args": ["dist/index.js"],
+      "args": ["/path/to/your/aladin-mcp/dist/index.js"],
+      "cwd": "/path/to/your/aladin-mcp",
       "env": {
         "TTB_KEY": "your_aladin_api_key_here",
         "NODE_ENV": "production",

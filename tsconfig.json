@@ -18,7 +18,17 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "lib": ["ES2022"],
-    "types": ["node", "jest"]
+    "types": ["node", "jest"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/types": ["src/types"],
+      "@/utils/*": ["src/utils/*"],
+      "@/tools/*": ["src/tools/*"],
+      "@/constants/*": ["src/constants/*"]
+    },
+    "incremental": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo"
   },
   "include": [
     "src/**/*"
@@ -28,7 +38,9 @@
     "dist",
     "tests",
     "**/*.test.ts",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    ".jest-cache",
+    "jest.config.js.bak"
   ],
   "ts-node": {
     "esm": true,
