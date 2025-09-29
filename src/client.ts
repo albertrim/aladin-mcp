@@ -99,10 +99,21 @@ export class AladinApiClient {
       }
     );
 
-    // 응답 인터셉터 설정 (에러 처리)
+    // 응답 인터셉터 설정 (JSON 파싱 및 에러 처리)
     this.axios.interceptors.response.use(
       (response) => {
         this.circuitBreakerFailures = 0; // 성공 시 실패 카운트 리셋
+
+        // 알라딘 API가 JSON 문자열로 응답하는 경우 파싱
+        if (typeof response.data === 'string') {
+          try {
+            response.data = JSON.parse(response.data);
+          } catch (parseError) {
+            console.error('DEBUG: JSON 파싱 실패, 원본 응답:', response.data);
+            throw this.createStandardError(900, 'JSON 파싱 실패', parseError);
+          }
+        }
+
         return response;
       },
       (error) => {
