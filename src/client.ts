@@ -111,7 +111,11 @@ export class AladinApiClient {
             console.error('DEBUG: 응답 시작 100자:', response.data.substring(0, 100));
             console.error('DEBUG: 응답 끝 100자:', response.data.substring(Math.max(0, response.data.length - 100)));
 
-            response.data = JSON.parse(response.data);
+            // JSON 응답 정제
+            const cleanedJsonString = this.cleanJsonResponse(response.data);
+            console.error('DEBUG: JSON 정제 완료, 정제된 길이:', cleanedJsonString.length);
+
+            response.data = JSON.parse(cleanedJsonString);
             console.error('DEBUG: JSON 파싱 성공');
           } catch (parseError) {
             console.error('DEBUG: JSON 파싱 실패!');
@@ -580,6 +584,42 @@ export class AladinApiClient {
       originalError,
       timestamp: new Date().toISOString()
     };
+  }
+
+  /**
+   * 알라딘 API JSON 응답 정제
+   */
+  private cleanJsonResponse(jsonString: string): string {
+    // 1. 양 끝의 공백 제거
+    let cleaned = jsonString.trim();
+
+    // 2. JSON 끝 이후의 불필요한 문자 제거 (마지막 } 이후의 모든 것)
+    const lastBraceIndex = cleaned.lastIndexOf('}');
+    if (lastBraceIndex !== -1 && lastBraceIndex < cleaned.length - 1) {
+      console.error('DEBUG: JSON 끝 이후 불필요한 문자 제거:', cleaned.substring(lastBraceIndex + 1));
+      cleaned = cleaned.substring(0, lastBraceIndex + 1);
+    }
+
+    // 3. 문제가 되는 제어 문자들을 안전하게 처리
+    cleaned = cleaned
+      // 줄바꿈 문자를 적절히 이스케이프
+      .replace(/\r\n/g, '\\n')
+      .replace(/\n/g, '\\n')
+      .replace(/\r/g, '\\r')
+      .replace(/\t/g, '\\t')
+      // 기타 제어 문자 제거
+      .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
+      // 잘못된 백슬래시 처리
+      .replace(/\\/g, '\\\\')
+      // 올바른 JSON 이스케이프 문자는 복원
+      .replace(/\\\\\\\\/g, '\\\\')
+      .replace(/\\\\n/g, '\\n')
+      .replace(/\\\\r/g, '\\r')
+      .replace(/\\\\t/g, '\\t')
+      .replace(/\\\\"/g, '\\"')
+      .replace(/\\\\\//g, '\\/');
+
+    return cleaned;
   }
 
   /**
