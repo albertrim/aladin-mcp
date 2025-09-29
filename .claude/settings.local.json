@@ -4,7 +4,16 @@
       "Bash(git checkout:*)",
       "Bash(pnpm type-check:*)",
       "Bash(git add:*)",
-      "Bash(pnpm lint:*)"
+      "Bash(pnpm lint:*)",
+      "Bash(cat:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm build:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(timeout:*)",
+      "Bash(git commit:*)",
+      "Bash(node:*)",
+      "Bash(pnpm run:*)"
     ],
     "deny": [],
     "ask": []

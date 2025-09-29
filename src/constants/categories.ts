@@ -7,6 +7,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
 import csvParser from 'csv-parser';
 import type {
   CategoryCsvRow,
@@ -18,9 +19,15 @@ import type {
 // ===== 카테고리 파일 설정 =====
 
 /**
- * 카테고리 CSV 파일 경로
+ * 현재 파일의 디렉토리 경로
  */
-export const CATEGORY_CSV_PATH = path.join(process.cwd(), 'aladin_Category_CID_20210927.csv');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+/**
+ * 카테고리 CSV 파일 경로 (프로젝트 루트 기준)
+ */
+export const CATEGORY_CSV_PATH = path.join(__dirname, '../../aladin_Category_CID_20210927.csv');
 
 /**
  * 카테고리 데이터 캐시
@@ -436,10 +443,6 @@ export function isCategoryDataLoaded(): boolean {
 // ===== 자동 초기화 =====
 
 /**
- * 모듈 로드 시 카테고리 데이터를 자동으로 로드합니다.
- * 실패 시 경고만 출력하고 계속 진행합니다.
+ * 카테고리 데이터는 처음 사용할 때 lazy loading됩니다.
+ * 모듈 로드 시 자동 로드하지 않아 초기화 시간을 단축합니다.
  */
-loadCategoryData().catch(error => {
-  console.warn('카테고리 데이터 자동 로드 실패:', error.message);
-  console.warn('카테고리 관련 기능이 제한될 수 있습니다.');
-});
