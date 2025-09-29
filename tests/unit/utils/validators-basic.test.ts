@@ -59,7 +59,7 @@ describe('Basic Validators', () => {
 
   describe('validateTtbKey', () => {
     test('유효한 TTB 키를 검증해야 함', () => {
-      const result = validateTtbKey('ttbalbert.rim1712001');
+      const result = validateTtbKey('valid_api_key_example');
       expect(result.isValid).toBe(true);
     });
 

@@ -53,6 +53,7 @@ aladin-mcp-server/
 
 ### 필수 환경 변수
 - **TTB_KEY**: `your_aladin_api_key_here` (알라딘 API 키)
+- TTB_KEY로 개인키를 사용하지 말 것
 - **NODE_ENV**: `development` 또는 `production`
 - **LOG_LEVEL**: `debug`, `info`, `warn`, `error`
 
