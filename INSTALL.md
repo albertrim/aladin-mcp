@@ -110,8 +110,8 @@ Claude Desktop에서 다음 명령어로 MCP 도구가 정상 작동하는지 �
 ### 로그 확인
 
 ```bash
-# 개발 모드로 실행하여 자세한 로그 확인
-NODE_ENV=development LOG_LEVEL=debug node dist/index.js
+# 디버그 로그로 실행하여 자세한 로그 확인
+LOG_LEVEL=debug node dist/index.js
 ```
 
 ## 📞 지원

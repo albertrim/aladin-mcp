@@ -14,7 +14,8 @@
       "Bash(git commit:*)",
       "Bash(node:*)",
       "Bash(pnpm run:*)",
-      "Read(//c/Users/alber/AppData/Roaming/Claude/**)"
+      "Read(//c/Users/alber/AppData/Roaming/Claude/**)",
+      "Bash(git tag:*)"
     ],
     "deny": [],
     "ask": []

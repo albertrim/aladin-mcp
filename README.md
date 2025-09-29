@@ -70,7 +70,7 @@ cp .env.example .env
 
 # .env 파일 편집 (알라딘 TTB 키 설정)
 TTB_KEY=your_aladin_api_key_here
-NODE_ENV=development
+NODE_ENV=production
 LOG_LEVEL=info
 ```
 
@@ -79,10 +79,10 @@ LOG_LEVEL=info
 # TypeScript 빌드
 pnpm build
 
-# 프로덕션 모드 실행
+# 프로덕션 모드 실행 (권장)
 pnpm start
 
-# 또는 개발 모드 실행 (Hot Reload)
+# 개발 모드 실행 (개발자용)
 pnpm dev
 ```
 
@@ -137,7 +137,7 @@ Claude Desktop 설정 파일을 직접 편집:
       "cwd": "C:\\path\\to\\aladin-mcp",
       "env": {
         "TTB_KEY": "your_aladin_api_key_here",
-        "NODE_ENV": "development",
+        "NODE_ENV": "production",
         "LOG_LEVEL": "info"
       }
     }
@@ -248,7 +248,7 @@ pnpm test && pnpm lint && pnpm type-check
 ls dist/index.js
 
 # 2. 서버 수동 실행 테스트
-pnpm dev
+pnpm start
 
 # 3. 설정 파일 JSON 유효성 검사
 node -e "console.log(JSON.parse(require('fs').readFileSync('claude_desktop_config.json', 'utf8')))"
@@ -331,8 +331,8 @@ kill -USR2 <process_id>
 
 #### 디버그 로그 활성화
 ```bash
-# 상세 로그로 실행
-LOG_LEVEL=debug pnpm dev
+# 상세 로그로 실행 (디버깅용)
+LOG_LEVEL=debug pnpm start
 
 # 로그 파일 위치
 tail -f logs/aladin-mcp.log
