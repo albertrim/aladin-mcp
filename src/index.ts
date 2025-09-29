@@ -5,6 +5,8 @@
  * Claude Desktop과 연동하여 도서 검색, 상세 정보 조회, 베스트셀러/신간 목록 등의 기능을 제공합니다.
  */
 
+console.error('DEBUG: index.ts 파일 로드됨');
+
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {
@@ -443,11 +445,25 @@ async function main(): Promise<void> {
 }
 
 // ESM 환경에서 직접 실행 시에만 서버 시작
-if (import.meta.url === `file://${process.argv[1]}`) {
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const currentFilePath = fileURLToPath(import.meta.url);
+const scriptPath = process.argv[1];
+const isMainModule = path.resolve(currentFilePath) === path.resolve(scriptPath);
+
+console.error('DEBUG: currentFilePath:', currentFilePath);
+console.error('DEBUG: scriptPath:', scriptPath);
+console.error('DEBUG: isMainModule:', isMainModule);
+
+if (isMainModule) {
+  console.error('DEBUG: main() 함수 호출 시작');
   main().catch((error) => {
     console.error('예기치 않은 오류:', error);
     process.exit(1);
   });
+} else {
+  console.error('DEBUG: main() 함수가 호출되지 않음 - 조건 불일치');
 }
 
 export { AladinMcpServer, main };
