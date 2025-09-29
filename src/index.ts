@@ -105,10 +105,10 @@ class AladinMcpServer {
   constructor() {
     this.startTime = new Date();
 
-    // 로거 초기화
+    // 로거 초기화 (MCP 서버는 stdout을 JSON-RPC 통신용으로만 사용)
     this.logger = initializeLogger({
       level: (process.env.LOG_LEVEL as any) || 'info',
-      enableConsole: process.env.NODE_ENV !== 'production',
+      enableConsole: false, // MCP 서버에서는 콘솔 출력 비활성화
       enableFile: true
     });
 

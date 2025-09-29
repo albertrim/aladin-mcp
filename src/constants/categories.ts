@@ -94,7 +94,7 @@ export async function loadCategoryData(): Promise<ParsedCategory[]> {
             categories.push(parsedCategory);
           }
         } catch (error: any) {
-          console.warn('카테고리 파싱 중 오류:', error, row);
+          console.error('카테고리 파싱 중 오류:', error, row);
         }
       })
       .on('end', () => {
@@ -149,7 +149,7 @@ function parseCategory(row: any): ParsedCategory | null {
       mallType
     };
   } catch (error) {
-    console.warn('카테고리 행 파싱 실패:', error, row);
+    console.error('카테고리 행 파싱 실패:', error, row);
     return null;
   }
 }

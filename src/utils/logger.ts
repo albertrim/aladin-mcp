@@ -203,11 +203,12 @@ export class AladinLogger {
 
     const loggerTransports: any[] = [];
 
-    // 콘솔 출력 설정
+    // 콘솔 출력 설정 (MCP 서버는 stderr만 사용)
     if (this.config.enableConsole) {
       loggerTransports.push(
         new transports.Console({
           level: this.config.level,
+          stderrLevels: ['error', 'warn', 'info', 'debug'],
           format: format.combine(
             format.colorize(),
             format.simple(),
