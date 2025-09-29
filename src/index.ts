@@ -119,9 +119,11 @@ class AladinMcpServer {
       }
     });
 
+    console.error('DEBUG: AladinMcpServer 생성자 호출됨');
     this.logger.info('알라딘 MCP 서버 초기화 시작', SERVER_INFO);
     this.setupHandlers();
     this.setupProcessHandlers();
+    console.error('DEBUG: 핸들러 설정 완료');
   }
 
   /**
@@ -130,18 +132,23 @@ class AladinMcpServer {
   private setupHandlers(): void {
     // 초기화 요청 핸들러
     this.server.setRequestHandler(InitializeRequestSchema, async (request: InitializeRequest) => {
+      console.error('DEBUG: InitializeRequestSchema 핸들러 호출됨');
+
       this.logger.info('MCP 초기화 요청 수신', {
         protocolVersion: request.params.protocolVersion,
         clientInfo: request.params.clientInfo
       });
 
-      return {
+      const response = {
         protocolVersion: '2025-06-18',
         serverInfo: SERVER_INFO,
         capabilities: {
           tools: {}
         }
       };
+
+      console.error('DEBUG: 초기화 응답 준비 완료:', JSON.stringify(response, null, 2));
+      return response;
     });
 
     // 도구 목록 요청 핸들러
@@ -364,7 +371,9 @@ class AladinMcpServer {
       });
 
       // 서버 연결
+      console.error('DEBUG: MCP 서버 연결 시도 중...');
       await this.server.connect(transport);
+      console.error('DEBUG: MCP 서버 연결 성공');
 
       // 초기 헬스체크
       this.performHealthCheck();
